@@ -53,7 +53,7 @@ namespace BgInfo
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct WINDOWPOS {
+        public struct WindowPos {
             public IntPtr hwnd;
             public IntPtr hwndInsertAfter;
             public int x;

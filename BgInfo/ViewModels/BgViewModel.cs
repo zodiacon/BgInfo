@@ -14,11 +14,9 @@ namespace BgInfo.ViewModels {
     class BgViewModel : BindableBase {
         MonitorInfo _monitor;
         PerformanceInformation _perf;
-        public IEnumerable<DriveInfoViewModel> _drives;
 
         public BgViewModel(MonitorInfo monitor) {
             _monitor = monitor;
-            _drives = DriveInfo.GetDrives().Select(drive => new DriveInfoViewModel(drive));
 
             Refresh(false);
             //var version = new OSVersionInfoEx();
@@ -26,7 +24,7 @@ namespace BgInfo.ViewModels {
             //GetVersionEx(ref version);
         }
 
-        public IEnumerable<DriveInfoViewModel> Drives => _drives;
+        public IEnumerable<DriveInfoViewModel> Drives => DriveInfo.GetDrives().Select(drive => new DriveInfoViewModel(drive));
         public DateTime BootTime => DateTime.Now - TimeSpan.FromMilliseconds(Environment.TickCount);
         public string OSVersion => Environment.OSVersion.ToString();
         public string ComputerName => Environment.MachineName;
@@ -65,6 +63,8 @@ namespace BgInfo.ViewModels {
                 OnPropertyChanged(nameof(Threads));
                 OnPropertyChanged(nameof(Handles));
                 OnPropertyChanged(nameof(Drives));
+                OnPropertyChanged(nameof(UpdateTime));
+                OnPropertyChanged(nameof(Commit));
             }
         }
     }

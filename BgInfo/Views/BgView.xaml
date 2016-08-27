@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         AllowsTransparency="True" WindowStyle="None" Background="{x:Null}" IsHitTestVisible="False" Closing="Window_Closing"
         ShowInTaskbar="False">
-    <Grid Margin="8" HorizontalAlignment="Right" TextElement.FontSize="14" TextElement.Foreground="White" >
+    <Grid Margin="12" HorizontalAlignment="Right" TextElement.FontSize="14" TextElement.Foreground="White" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="8" />
@@ -87,20 +87,23 @@
         <TextBlock Grid.Row="6" Text="Available Memory:" />
         <TextBlock Grid.Row="6" Text="{Binding AvailableMemory}" Grid.Column="2" />
 
-        <TextBlock Grid.Row="7" Text="Processes:" />
-        <TextBlock Grid.Row="7" Text="{Binding Processes}" Grid.Column="2" />
+        <TextBlock Grid.Row="7" Text="Memory Commit:" />
+        <TextBlock Grid.Row="7" Text="{Binding Commit}" Grid.Column="2" />
 
-        <TextBlock Grid.Row="8" Text="Threads:" />
-        <TextBlock Grid.Row="8" Text="{Binding Threads}" Grid.Column="2" />
+        <TextBlock Grid.Row="10" Text="Processes:" />
+        <TextBlock Grid.Row="10" Text="{Binding Processes}" Grid.Column="2" />
 
-        <TextBlock Grid.Row="9" Text="Processor:" />
-        <TextBlock Grid.Row="9" Text="{Binding Processor}" Grid.Column="2" />
+        <TextBlock Grid.Row="11" Text="Threads:" />
+        <TextBlock Grid.Row="11" Text="{Binding Threads}" Grid.Column="2" />
 
-        <TextBlock Grid.Row="10" Text="Logical Processors:" />
-        <TextBlock Grid.Row="10" Text="{Binding ProcessorCount}" Grid.Column="2" />
+        <TextBlock Grid.Row="13" Text="Processor:" />
+        <TextBlock Grid.Row="13" Text="{Binding Processor}" Grid.Column="2" />
 
-        <TextBlock Grid.Row="11" Text="Drives:" />
-        <ItemsControl Grid.Row="11" ItemsSource="{Binding Drives}" Grid.Column="2">
+        <TextBlock Grid.Row="14" Text="Logical Processors:" />
+        <TextBlock Grid.Row="14" Text="{Binding ProcessorCount}" Grid.Column="2" />
+
+        <TextBlock Grid.Row="15" Text="Drives:" />
+        <ItemsControl Grid.Row="15" ItemsSource="{Binding Drives}" Grid.Column="2">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
