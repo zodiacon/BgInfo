@@ -15,28 +15,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static BgInfo.NativeMethods;
 
-namespace BgInfo.Views
-{
-	/// <summary>
-	/// Interaction logic for BgView.xaml
-	/// </summary>
-	public partial class BgView : Window
-	{
-		public BgView()
-		{
-			InitializeComponent();
+namespace BgInfo.Views {
+    /// <summary>
+    /// Interaction logic for BgView.xaml
+    /// </summary>
+    public partial class BgView : Window {
+        public BgView() {
+            InitializeComponent();
 
-			Loaded += delegate
-			{
-				var handle = new WindowInteropHelper(this).Handle;
+            Loaded += delegate {
+                var handle = new WindowInteropHelper(this).Handle;
 
                 SetWindowLong(handle, GWL_EXSTYLE, GetWindowLong(handle, GWL_EXSTYLE) | WS_EX_NOACTIVATE);
-				SetWindowPos(handle, new IntPtr(1), 0, 0, 0, 0, SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE);
+                SetWindowPos(handle, new IntPtr(HWND_BOTTOM), 0, 0, 0, 0, SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE);
 
                 var wndSource = HwndSource.FromHwnd(handle);
                 wndSource.AddHook(WindowProc);
             };
-		}
+        }
 
         private IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled) {
             if(msg == WM_WINDOWPOSCHANGING) {
@@ -47,9 +43,8 @@ namespace BgInfo.Views
             return IntPtr.Zero;
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			e.Cancel = true;
-		}
-	}
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+            e.Cancel = true;
+        }
+    }
 }

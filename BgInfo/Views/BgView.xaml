@@ -3,12 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BgInfo.Views"
+        xmlns:local="clr-namespace:BgInfo.Views" 
         mc:Ignorable="d"
-        AllowsTransparency="True" WindowStyle="None" Background="{x:Null}" IsHitTestVisible="False" Closing="Window_Closing"
+        AllowsTransparency="True" WindowStyle="None" Background="{x:Null}" IsHitTestVisible="False" Closing="Window_Closing" 
         ShowInTaskbar="False">
-    <Grid>
+    <Grid >
         <Grid Margin="12" HorizontalAlignment="Right" TextElement.FontSize="{Binding Settings.FontSize}" TextElement.Foreground="{Binding Settings.TextColor}" x:Name="TheGrid">
+            <Grid.Resources>
+            </Grid.Resources>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="8" />
