@@ -17,7 +17,7 @@ namespace BgInfo
         public const int SWP_NOSIZE = 1;
         public const int SWP_NOACTIVATE = 0x10;
 
-        public const int WM_WINDOWPOSCHANGING = 0x46;
+        public const int WM_WINDOWPOSCHANGED = 0x47;
 
         [StructLayout(LayoutKind.Sequential)]
         public struct PerformanceInformation {

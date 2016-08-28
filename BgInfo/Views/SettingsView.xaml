@@ -47,7 +47,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <TextBlock Text="Interval (sec):" Grid.Row="6" />
+        <TextBlock Text="Interval (H:M:S):" Grid.Row="6" />
         <ComboBox Grid.Row="6" Grid.Column="2" HorizontalAlignment="Left" Width="100" 
                   ItemsSource="{Binding RefreshIntervals}" SelectedItem="{Binding SelectedInterval, Mode=TwoWay}" />
 

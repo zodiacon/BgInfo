@@ -34,14 +34,14 @@ namespace BgInfo.Views {
             };
         }
 
-        private IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled) {
-            if(msg == WM_WINDOWPOSCHANGING) {
-                var windowPos = Marshal.PtrToStructure<WindowPos>(lParam);
-                windowPos.hwndInsertAfter = new IntPtr(HWND_BOTTOM);
-                handled = true;
-            }
-            return IntPtr.Zero;
-        }
+private IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled) {
+    if(msg == WM_WINDOWPOSCHANGED) {
+        var windowPos = Marshal.PtrToStructure<WindowPos>(lParam);
+        windowPos.hwndInsertAfter = new IntPtr(HWND_BOTTOM);
+        handled = true;
+    }
+    return IntPtr.Zero;
+}
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
             e.Cancel = true;
