@@ -16,6 +16,7 @@ namespace BgInfo
         public const int SWP_NOMOVE = 2;
         public const int SWP_NOSIZE = 1;
         public const int SWP_NOACTIVATE = 0x10;
+        public const int SWP_NOZORDER = 4;
 
         public const int WM_WINDOWPOSCHANGING = 0x46;
 
