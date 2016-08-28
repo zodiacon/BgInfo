@@ -35,7 +35,7 @@ namespace BgInfo.Views {
         }
 
 private IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled) {
-    if(msg == WM_WINDOWPOSCHANGED) {
+    if(msg == WM_WINDOWPOSCHANGING) {
         var windowPos = Marshal.PtrToStructure<WindowPos>(lParam);
         windowPos.hwndInsertAfter = new IntPtr(HWND_BOTTOM);
         handled = true;
