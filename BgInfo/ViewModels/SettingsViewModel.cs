@@ -17,8 +17,9 @@ namespace BgInfo.ViewModels {
             _settings = settings;
 
             _selectedFont = new FontFamily(settings.FontFamily);
-            _textColor = settings.TextColor.ToWPFColor();
-            _backgroundColor = settings.BackgroundColor.ToWPFColor();
+            _textColor = ((SolidColorBrush)settings.TextColor).Color;
+            _selectedFontSize = settings.FontSize;
+            _selectedInterval = TimeSpan.FromSeconds(settings.IntervalSeconds);
         }
 
         private FontFamily _selectedFont;
@@ -28,21 +29,32 @@ namespace BgInfo.ViewModels {
             set { SetProperty(ref _selectedFont, value); }
         }
 
-        private Color _textColor = Colors.White;
+        private Color _textColor;
 
         public Color TextColor {
             get { return _textColor; }
             set { SetProperty(ref _textColor, value); }
         }
 
-        private Color _backgroundColor = Colors.Transparent;
+        public IEnumerable<FontFamily> SystemFonts => Fonts.SystemFontFamilies.OrderBy(font => font.Source);
 
-        public Color BackgroundColor {
-            get { return _backgroundColor; }
-            set { SetProperty(ref _backgroundColor, value); }
+        public IEnumerable<int> FontSizes => new[] { 8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 40 };
+
+        private int _selectedFontSize;
+
+        public int SelectedFontSize {
+            get { return _selectedFontSize; }
+            set { SetProperty(ref _selectedFontSize, value); }
         }
 
-        public IEnumerable<FontFamily> SystemFonts => Fonts.SystemFontFamilies.OrderBy(font => font.Source);
+        public IEnumerable<TimeSpan> RefreshIntervals => new[] { 10, 20, 30, 60, 120, 300, 600, 1800, 3600, 7200, 14400, 24 * 3600 }.Select(i => TimeSpan.FromSeconds(i));
+
+        private TimeSpan _selectedInterval;
+
+        public TimeSpan SelectedInterval {
+            get { return _selectedInterval; }
+            set { SetProperty(ref _selectedInterval, value); }
+        }
 
     }
 }

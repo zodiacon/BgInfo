@@ -25,7 +25,11 @@ namespace BgInfo.ViewModels {
             SettingsCommand = new DelegateCommand(() => {
                 _mgr.EnableTray(false);
                 var vm = DialogService.CreateDialog<SettingsViewModel, SettingsView>(_mgr.Settings);
-                vm.ShowDialog();
+                if(vm.ShowDialog() == true) {
+                    // apply changes
+                    mgr.ApplySettings(vm);
+                }
+
                 _mgr.EnableTray(true);
             });
         }

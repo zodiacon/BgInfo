@@ -19,6 +19,7 @@ using Zodiacon.WPF;
 using System.ComponentModel.Composition.Hosting;
 using BgInfo.Models;
 using System.Windows.Threading;
+using System.Windows.Media;
 
 namespace BgInfo
 {
@@ -34,6 +35,14 @@ namespace BgInfo
             _timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(60) };
             _timer.Tick += _timer_Tick;
             _timer.Start();
+        }
+
+        public void ApplySettings(SettingsViewModel settings) {
+            Settings.FontFamily = settings.SelectedFont.Source;
+            Settings.FontSize = settings.SelectedFontSize;
+            Settings.TextColor = new SolidColorBrush(settings.TextColor);
+            _timer.Interval = settings.SelectedInterval;
+            Settings.IntervalSeconds = (int)settings.SelectedInterval.TotalSeconds;
         }
 
         private void _timer_Tick(object sender, EventArgs e) {
@@ -52,7 +61,7 @@ namespace BgInfo
 				info.Init();
                 GetMonitorInfo(hMonitor, ref info);
 
-                var vm = new BgViewModel(info);
+                var vm = new BgViewModel(info, Settings);
                 var win = new BgView
 				{
 					Left = info.rcWork.Left,

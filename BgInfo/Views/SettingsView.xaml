@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BgInfo.Views"
         mc:Ignorable="d" ResizeMode="NoResize"
         xmlns:t="http://schemas.xceed.com/wpf/xaml/toolkit"
-        Title="BgInfo Settings" Height="500" Width="400">
+        Title="BgInfo Settings" SizeToContent="WidthAndHeight" >
     <Grid Margin="12">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -21,21 +21,39 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="6" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Background Color:" VerticalAlignment="Center"/>
-        <t:ColorPicker Grid.Column="2" Width="160" SelectedColor="{Binding BackgroundColor, Mode=TwoWay}" Margin="8,0,0,0"/>
+        <TextBlock Grid.Row="0" Text="Text Color:" VerticalAlignment="Center"/>
+        <t:ColorPicker Grid.Row="0" Grid.Column="2" Width="160" SelectedColor="{Binding TextColor, Mode=TwoWay}" />
 
-        <TextBlock Grid.Row="2" Text="Text Color:" VerticalAlignment="Center"/>
-        <t:ColorPicker Grid.Row="2" Grid.Column="2" Width="160" SelectedColor="{Binding TextColor, Mode=TwoWay}" Margin="8,0,0,0"/>
-
-        <TextBlock Text="Font Family:" Grid.Row="4" VerticalAlignment="Center"/>
-        <ComboBox Grid.Row="4" Grid.Column="2" ItemsSource="{Binding SystemFonts}" SelectedItem="{Binding SelectedFont, Mode=TwoWay}">
+        <TextBlock Text="Font Family:" Grid.Row="2" VerticalAlignment="Center"/>
+        <ComboBox Grid.Row="2" Grid.Column="2" ItemsSource="{Binding SystemFonts}" SelectedItem="{Binding SelectedFont, Mode=TwoWay}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding}" FontFamily="{Binding}" />
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
+
+        <TextBlock Text="Font Size:" Grid.Row="4" VerticalAlignment="Center" />
+        <ComboBox Grid.Row="4" Grid.Column="2" ItemsSource="{Binding FontSizes}" SelectedItem="{Binding SelectedFontSize, Mode=TwoWay}" Width="120" HorizontalAlignment="Left"
+                  IsEditable="True" IsReadOnly="True" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" FontSize="{Binding}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <TextBlock Text="Interval (sec):" Grid.Row="6" />
+        <ComboBox Grid.Row="6" Grid.Column="2" HorizontalAlignment="Left" Width="100" 
+                  ItemsSource="{Binding RefreshIntervals}" SelectedItem="{Binding SelectedInterval, Mode=TwoWay}" />
+
+        <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+            <Button Content="OK" Command="{Binding OKCommand}" IsDefault="True" Padding="4" Width="70" Margin="10,0" />
+            <Button Content="Cancel" Command="{Binding CancelCommand}" IsCancel="True" Padding="4" Width="70" Margin="10,0"/>
+        </StackPanel>
     </Grid>
 </Window>

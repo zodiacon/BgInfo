@@ -9,19 +9,19 @@ using System.Windows;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Management;
+using BgInfo.Models;
 
 namespace BgInfo.ViewModels {
     class BgViewModel : BindableBase {
         MonitorInfo _monitor;
         PerformanceInformation _perf;
+        public Settings Settings { get; }
 
-        public BgViewModel(MonitorInfo monitor) {
+        public BgViewModel(MonitorInfo monitor, Settings settings) {
             _monitor = monitor;
+            Settings = settings;
 
             Refresh(false);
-            //var version = new OSVersionInfoEx();
-            //version.dwOSVersionInfoSize = Marshal.SizeOf<OSVersionInfoEx>();
-            //GetVersionEx(ref version);
         }
 
         public IEnumerable<DriveInfoViewModel> Drives => DriveInfo.GetDrives().Select(drive => new DriveInfoViewModel(drive));
