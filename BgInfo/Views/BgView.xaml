@@ -110,7 +110,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>
-                        <Run Text="{Binding Name, Mode=OneTime}" /><Span>&#160; Total: &#160;</Span>
+                        <Run Text="{Binding Name, Mode=OneTime}" /><Span>&#160;&#160;</Span>
                         <Run Text="{Binding TotalSize, Mode=OneTime}" /><Span>&#160;Free:&#160;</Span>
                         <Run Text="{Binding FreeSpace, Mode=OneWay}" />
                         </TextBlock>

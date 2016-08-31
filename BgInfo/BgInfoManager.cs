@@ -21,11 +21,9 @@ using BgInfo.Models;
 using System.Windows.Threading;
 using System.Windows.Media;
 
-namespace BgInfo
-{
-	class BgInfoManager
-	{
-		TaskbarIcon _tray;
+namespace BgInfo {
+    class BgInfoManager {
+        TaskbarIcon _tray;
         ObservableCollection<BgViewModel> _screens = new ObservableCollection<BgViewModel>();
         DispatcherTimer _timer;
 
@@ -46,46 +44,42 @@ namespace BgInfo
         }
 
         private void _timer_Tick(object sender, EventArgs e) {
-            foreach(var screen in _screens)
-                screen.Refresh();
+            Refresh();
         }
 
-        public int CreateWindows()
-		{
-			var windows = 0;
+        public int CreateWindows() {
+            var windows = 0;
 
-			EnumDisplayMonitors(IntPtr.Zero, IntPtr.Zero, (IntPtr hMonitor, IntPtr hdcMonitor, ref RECT rect, IntPtr data) => {
-				Debug.WriteLine($"monitor: {hMonitor}");
+            EnumDisplayMonitors(IntPtr.Zero, IntPtr.Zero, (IntPtr hMonitor, IntPtr hdcMonitor, ref RECT rect, IntPtr data) => {
+                Debug.WriteLine($"monitor: {hMonitor}");
 
-				var info = new MonitorInfo();
-				info.Init();
+                var info = new MonitorInfo();
+                info.Init();
                 GetMonitorInfo(hMonitor, ref info);
 
                 var vm = new BgViewModel(info, Settings);
-                var win = new BgView
-				{
-					Left = info.rcWork.Left,
-					Top = info.rcWork.Top,
-					Width = info.rcWork.Width,
-					Height = info.rcWork.Height,
-					DataContext = vm
-				};
+                var win = new BgView {
+                    Left = info.rcWork.Left,
+                    Top = info.rcWork.Top,
+                    Width = info.rcWork.Width,
+                    Height = info.rcWork.Height,
+                    DataContext = vm
+                };
                 _screens.Add(vm);
 
-				win.Show();
-				windows++;
-				return true;
-			}, IntPtr.Zero);
+                win.Show();
+                windows++;
+                return true;
+            }, IntPtr.Zero);
 
-			return windows;
-		}
+            return windows;
+        }
 
         public void EnableTray(bool enable) {
             _tray.Visibility = enable ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        public void InitTray()
-		{
+        public void InitTray() {
             var container = new CompositionContainer(
                 new AggregateCatalog(
                     new AssemblyCatalog(Assembly.GetExecutingAssembly()),
@@ -95,9 +89,14 @@ namespace BgInfo
             var vm = new TaskbarIconViewModel(this);
             container.SatisfyImportsOnce(vm);
 
-            _tray.DataContext = vm; 
+            _tray.DataContext = vm;
 
             TaskbarIcon.SetParentTaskbarIcon(Application.Current.MainWindow, _tray);
-		}
-	}
+        }
+
+        public void Refresh() {
+            foreach(var screen in _screens)
+                screen.Refresh();
+        }
+    }
 }
