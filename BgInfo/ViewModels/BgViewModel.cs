@@ -69,16 +69,26 @@ namespace BgInfo.ViewModels {
             }
         }
 
-        public IEnumerable<string> MacAddress {
+        public IEnumerable<string> Network {
             get {
                 var macs = new List<string>(4);
                 foreach(var nic in NetworkInterface.GetAllNetworkInterfaces()) {
                     var address = nic.GetPhysicalAddress().ToString();
                     if(!string.IsNullOrEmpty(address) && address.Length == 12)
-                        macs.Add($"{address} {nic.Speed / 1000000} Mb/s ({nic.Description})");
+                        macs.Add($"{nic.Description}\n\t {ToMacAddress(address)} {nic.Speed / 1000000} Mb/s");
                 }
                 return macs.Distinct();
             }
+        }
+
+        private string ToMacAddress(string address) {
+            var mac = new StringBuilder(32);
+            for(int i = 0; i < address.Length; i += 2) {
+                mac.Append(address.Substring(i, 2));
+                if(i < address.Length - 2)
+                    mac.Append("-");
+            }
+            return mac.ToString();
         }
     }
 }

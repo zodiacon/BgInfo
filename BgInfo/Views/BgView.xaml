@@ -118,8 +118,8 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <TextBlock Grid.Row="17" Text="MAC Address:" />
-            <ItemsControl Grid.Row="17" ItemsSource="{Binding MacAddress}" Grid.Column="2" />
+            <TextBlock Grid.Row="17" Text="Network:" />
+            <ItemsControl Grid.Row="17" ItemsSource="{Binding Network}" Grid.Column="2" />
 
 
             <TextBlock Grid.Row="40" Text="Update Time:" />
