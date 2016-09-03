@@ -88,7 +88,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Zodiacon.WPF, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zodiacon.WPF.1.0.7\lib\net45\Zodiacon.WPF.dll</HintPath>
+      <HintPath>..\packages\Zodiacon.WPF.1.0.8\lib\net45\Zodiacon.WPF.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

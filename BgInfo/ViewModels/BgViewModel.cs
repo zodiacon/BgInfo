@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.IO;
 using System.Management;
 using BgInfo.Models;
+using System.Net.NetworkInformation;
 
 namespace BgInfo.ViewModels {
     class BgViewModel : BindableBase {
@@ -65,6 +66,18 @@ namespace BgInfo.ViewModels {
                 OnPropertyChanged(nameof(Drives));
                 OnPropertyChanged(nameof(UpdateTime));
                 OnPropertyChanged(nameof(Commit));
+            }
+        }
+
+        public IEnumerable<string> MacAddress {
+            get {
+                var macs = new List<string>(4);
+                foreach(var nic in NetworkInterface.GetAllNetworkInterfaces()) {
+                    var address = nic.GetPhysicalAddress().ToString();
+                    if(!string.IsNullOrEmpty(address) && address.Length == 12)
+                        macs.Add($"{address} {nic.Speed / 1000000} Mb/s ({nic.Description})");
+                }
+                return macs.Distinct();
             }
         }
     }
