@@ -58,7 +58,7 @@ namespace BgInfo {
                 GetMonitorInfo(hMonitor, ref info);
 
                 var vm = new BgViewModel(info, Settings);
-                var win = new BgView {
+                var win = new MainView {
                     Left = info.rcWork.Left,
                     Top = info.rcWork.Top,
                     Width = info.rcWork.Width,

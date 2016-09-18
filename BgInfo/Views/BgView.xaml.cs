@@ -13,35 +13,15 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using static BgInfo.NativeMethods;
 
 namespace BgInfo.Views {
     /// <summary>
     /// Interaction logic for BgView.xaml
     /// </summary>
-    public partial class BgView : Window {
+    public partial class BgView {
         public BgView() {
             InitializeComponent();
 
-            Loaded += delegate {
-                var handle = new WindowInteropHelper(this).Handle;
-
-                SetWindowLong(handle, GWL_EXSTYLE, GetWindowLong(handle, GWL_EXSTYLE) | WS_EX_NOACTIVATE);
-                SetWindowPos(handle, new IntPtr(HWND_BOTTOM), 0, 0, 0, 0, SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE);
-
-                var wndSource = HwndSource.FromHwnd(handle);
-                wndSource.AddHook(WindowProc);
-            };
-        }
-
-        private IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled) {
-            if(msg == WM_WINDOWPOSCHANGING) {
-                var windowPos = Marshal.PtrToStructure<WindowPos>(lParam);
-                windowPos.hwndInsertAfter = new IntPtr(HWND_BOTTOM);
-                windowPos.flags &= ~(uint)SWP_NOZORDER;
-                handled = true;
-            }
-            return IntPtr.Zero;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
