@@ -12,19 +12,18 @@ using System.ComponentModel.Composition;
 using BgInfo.Views;
 
 namespace BgInfo.ViewModels {
-    [Export]
     sealed class TaskbarIconViewModel : BindableBase {
         readonly BgInfoManager _mgr;
-        public TaskbarIconViewModel(BgInfoManager mgr) {
-            _mgr = mgr;
+        readonly IUIServices UI;
 
-            ExitCommand = new DelegateCommand(() => {
-                Application.Current.Shutdown();
-            });
+        public TaskbarIconViewModel(BgInfoManager mgr, IUIServices ui) {
+            _mgr = mgr;
+            UI = ui;
+            ExitCommand = new DelegateCommand(() => Application.Current.Shutdown());
 
             SettingsCommand = new DelegateCommand(() => {
                 _mgr.EnableTray(false);
-                var vm = DialogService.CreateDialog<SettingsViewModel, SettingsView>(_mgr.Settings);
+                var vm = UI.DialogService.CreateDialog<SettingsViewModel, SettingsView>(_mgr.Settings);
                 if(vm.ShowDialog() == true) {
                     // apply changes
                     mgr.ApplySettings(vm);
@@ -41,10 +40,6 @@ namespace BgInfo.ViewModels {
                 _mgr.EnableTray(true);
             });
         }
-
-        [Import]
-#pragma warning disable 649     // uninitialized variable (satisfied by MEF)
-        IDialogService DialogService;
 
 
         public ICommand ExitCommand { get; }

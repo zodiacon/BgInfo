@@ -80,14 +80,9 @@ namespace BgInfo {
         }
 
         public void InitTray() {
-            var container = new CompositionContainer(
-                new AggregateCatalog(
-                    new AssemblyCatalog(Assembly.GetExecutingAssembly()),
-                    new AssemblyCatalog(typeof(IDialogService).Assembly)));
-
+            var ui = new UIServicesDefaults();
             _tray = Application.Current.FindResource("TrayIcon") as TaskbarIcon;
-            var vm = new TaskbarIconViewModel(this);
-            container.SatisfyImportsOnce(vm);
+            var vm = new TaskbarIconViewModel(this, ui);
 
             _tray.DataContext = vm;
 

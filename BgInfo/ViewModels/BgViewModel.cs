@@ -58,14 +58,14 @@ namespace BgInfo.ViewModels {
         public void Refresh(bool raiseChanges = true) {
             GetPerformanceInfo(out _perf, Marshal.SizeOf<PerformanceInformation>());
             if(raiseChanges) {
-                OnPropertyChanged(nameof(Resolution));
-                OnPropertyChanged(nameof(Processes));
-                OnPropertyChanged(nameof(AvailableMemory));
-                OnPropertyChanged(nameof(Threads));
-                OnPropertyChanged(nameof(Handles));
-                OnPropertyChanged(nameof(Drives));
-                OnPropertyChanged(nameof(UpdateTime));
-                OnPropertyChanged(nameof(Commit));
+                RaisePropertyChanged(nameof(Resolution));
+                RaisePropertyChanged(nameof(Processes));
+                RaisePropertyChanged(nameof(AvailableMemory));
+                RaisePropertyChanged(nameof(Threads));
+                RaisePropertyChanged(nameof(Handles));
+                RaisePropertyChanged(nameof(Drives));
+                RaisePropertyChanged(nameof(UpdateTime));
+                RaisePropertyChanged(nameof(Commit));
             }
         }
 
