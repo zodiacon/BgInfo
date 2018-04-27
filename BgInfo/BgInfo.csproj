@@ -90,6 +90,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BgInfoManager.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="ViewModels\BgViewModel.cs" />
     <Compile Include="ViewModels\DriveInfoViewModel.cs" />

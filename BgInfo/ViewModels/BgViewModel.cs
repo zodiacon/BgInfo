@@ -43,7 +43,8 @@ namespace BgInfo.ViewModels {
 
         public int ProcessorCount => Environment.ProcessorCount;
 
-        public string Processor => GetProcessorName();
+        static string _processorName;
+        public string Processor => _processorName ?? (_processorName = GetProcessorName());
 
         private string GetProcessorName() {
             var mgt = new ManagementClass("Win32_Processor");

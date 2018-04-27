@@ -36,7 +36,7 @@ namespace BgInfo.ViewModels {
 
             AboutCommand = new DelegateCommand(() => {
                 _mgr.EnableTray(false);
-                MessageBox.Show(Application.Current.MainWindow, "BgInfo (WPF Style) by Pavel Yosifovich (C)2016", "About BgInfo");
+                MessageBox.Show(Application.Current.MainWindow, "BgInfo (WPF Style) by Pavel Yosifovich (C)2016-2018", "About BgInfo");
                 _mgr.EnableTray(true);
             });
         }

@@ -98,14 +98,17 @@
             <TextBlock Grid.Row="11" Text="Threads:" />
             <TextBlock Grid.Row="11" Text="{Binding Threads}" Grid.Column="2" />
 
-            <TextBlock Grid.Row="13" Text="Processor:" />
-            <TextBlock Grid.Row="13" Text="{Binding Processor}" Grid.Column="2" />
+            <TextBlock Grid.Row="12" Text="Handles:" />
+            <TextBlock Grid.Row="12" Text="{Binding Handles}" Grid.Column="2" />
 
-            <TextBlock Grid.Row="14" Text="Logical Processors:" />
-            <TextBlock Grid.Row="14" Text="{Binding ProcessorCount}" Grid.Column="2" />
+            <TextBlock Grid.Row="14" Text="Processor:" />
+            <TextBlock Grid.Row="14" Text="{Binding Processor}" Grid.Column="2" />
 
-            <TextBlock Grid.Row="15" Text="Drives:" />
-            <ItemsControl Grid.Row="15" ItemsSource="{Binding Drives}" Grid.Column="2">
+            <TextBlock Grid.Row="15" Text="Logical Processors:" />
+            <TextBlock Grid.Row="16" Text="{Binding ProcessorCount}" Grid.Column="2" />
+
+            <TextBlock Grid.Row="17" Text="Drives:" />
+            <ItemsControl Grid.Row="17" ItemsSource="{Binding Drives}" Grid.Column="2">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>
@@ -117,9 +120,8 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <TextBlock Grid.Row="17" Text="Network:" />
-            <ItemsControl Grid.Row="17" ItemsSource="{Binding Network}" Grid.Column="2" />
-
+            <TextBlock Grid.Row="18" Text="Network:" />
+            <ItemsControl Grid.Row="18" ItemsSource="{Binding Network}" Grid.Column="2" />
 
             <TextBlock Grid.Row="40" Text="Update Time:" />
             <TextBlock Grid.Row="40" Text="{Binding UpdateTime}" Grid.Column="2" />
