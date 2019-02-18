@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:BgInfo.Views" 
         mc:Ignorable="d"
 >
-    <Grid >
-        <Grid Margin="12" HorizontalAlignment="Right" TextElement.FontSize="{Binding Settings.FontSize}" x:Name="TheGrid">
+    <Grid HorizontalAlignment="Right" >
+        <Grid Margin="12" TextElement.FontSize="{Binding Settings.FontSize}" x:Name="TheGrid">
             <Grid.Resources>
             </Grid.Resources>
             <Grid.ColumnDefinitions>

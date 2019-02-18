@@ -16,35 +16,45 @@ using System.Windows.Shapes;
 using static BgInfo.NativeMethods;
 
 namespace BgInfo.Views {
-	/// <summary>
-	/// Interaction logic for MainView.xaml
-	/// </summary>
-	public partial class MainView : Window {
-		public MainView() {
-			InitializeComponent();
+    /// <summary>
+    /// Interaction logic for MainView.xaml
+    /// </summary>
+    public partial class MainView : Window {
+        public MainView() {
+            InitializeComponent();
 
-			Loaded += delegate {
-				var handle = new WindowInteropHelper(this).Handle;
+            Loaded += delegate {
+                var handle = new WindowInteropHelper(this).Handle;
 
-				SetWindowLong(handle, GWL_EXSTYLE, GetWindowLong(handle, GWL_EXSTYLE) | WS_EX_NOACTIVATE);
-				SetWindowPos(handle, new IntPtr(HWND_BOTTOM), 0, 0, 0, 0, SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE);
+                SetWindowLong(handle, GWL_EXSTYLE, GetWindowLong(handle, GWL_EXSTYLE) | WS_EX_NOACTIVATE);
+                SetWindowPos(handle, new IntPtr(HWND_BOTTOM), 0, 0, 0, 0, SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE);
 
-				var wndSource = HwndSource.FromHwnd(handle);
-				wndSource.AddHook(WindowProc);
-			};
-		}
-		private IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled) {
-			if(msg == WM_WINDOWPOSCHANGING) {
-				var windowPos = Marshal.PtrToStructure<WindowPos>(lParam);
-				windowPos.hwndInsertAfter = new IntPtr(HWND_BOTTOM);
-				windowPos.flags &= ~(uint)SWP_NOZORDER;
-				handled = true;
-			}
-			return IntPtr.Zero;
-		}
+                var wndSource = HwndSource.FromHwnd(handle);
+                wndSource.AddHook(WindowProc);
+            };
+        }
+        unsafe IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled) {
+            switch (msg) {
+                case WM_WINDOWPOSCHANGING:
+                    var windowPos = Marshal.PtrToStructure<WindowPos>(lParam);
+                    windowPos.hwndInsertAfter = new IntPtr(HWND_BOTTOM);
+                    windowPos.flags &= ~(uint)SWP_NOZORDER;
+                    handled = true;
+                    break;
 
-		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
-			e.Cancel = true;
-		}
-	}
+                case WM_DPICHANGED:
+                    var handle = new WindowInteropHelper(this).Handle;
+                    var rc = (RECT*)lParam.ToPointer();
+                    SetWindowPos(handle, IntPtr.Zero, 0, 0, rc->Right, rc->Left, SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOZORDER);
+                    break;
+
+            }
+            return IntPtr.Zero;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+            e.Cancel = true;
+        }
+
+    }
 }

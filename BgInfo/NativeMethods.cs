@@ -19,20 +19,21 @@ namespace BgInfo {
         public const int SWP_NOZORDER = 4;
 
         public const int WM_WINDOWPOSCHANGING = 0x46;
+        public const int WM_DPICHANGED = 0x02E0;
 
         [StructLayout(LayoutKind.Sequential)]
         public struct PerformanceInformation {
             public int cb;
-            public uint CommitTotal;
-            public uint CommitLimit;
-            public uint CommitPeak;
-            public uint PhysicalTotal;
-            public uint PhysicalAvailable;
-            public uint SystemCache;
-            public uint KernelTotal;
-            public uint KernelPaged;
-            public uint KernelNonpaged;
-            public uint PageSize;
+            public IntPtr CommitTotal;
+            public IntPtr CommitLimit;
+            public IntPtr CommitPeak;
+            public IntPtr PhysicalTotal;
+            public IntPtr PhysicalAvailable;
+            public IntPtr SystemCache;
+            public IntPtr KernelTotal;
+            public IntPtr KernelPaged;
+            public IntPtr KernelNonpaged;
+            public IntPtr PageSize;
             public uint HandleCount;
             public uint ProcessCount;
             public uint ThreadCount;
@@ -101,8 +102,8 @@ namespace BgInfo {
         [DllImport("user32")]
         public static extern int GetWindowLong(IntPtr hWnd, int index);
 
-        [DllImport("psapi")]
-        public static extern bool GetPerformanceInfo(out PerformanceInformation pi, int size);
+        [DllImport("psapi", SetLastError = true)]
+        public static extern bool GetPerformanceInfo(ref PerformanceInformation pi, int size);
 
         [DllImport("kernel32")]
         public static extern bool GetVersionEx(ref OSVersionInfoEx versionInfo);
