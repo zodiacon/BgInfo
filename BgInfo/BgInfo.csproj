@@ -113,6 +113,7 @@
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowUtils.cs" />
     <Page Include="Views\BgView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

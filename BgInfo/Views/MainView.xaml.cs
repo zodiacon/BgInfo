@@ -25,9 +25,13 @@ namespace BgInfo.Views {
 
             Loaded += delegate {
                 var handle = new WindowInteropHelper(this).Handle;
+                WindowUtils.SetCommonStyles(handle);
+                WindowUtils.ShowAlwaysOnDesktop(handle);
 
-                SetWindowLong(handle, GWL_EXSTYLE, GetWindowLong(handle, GWL_EXSTYLE) | WS_EX_NOACTIVATE);
-                SetWindowPos(handle, new IntPtr(HWND_BOTTOM), 0, 0, 0, 0, SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE);
+                if (Environment.OSVersion.Version.Major >= 10)
+                {
+                    WindowUtils.ShowBehindDesktopIcons(handle);
+                }
 
                 var wndSource = HwndSource.FromHwnd(handle);
                 wndSource.AddHook(WindowProc);
