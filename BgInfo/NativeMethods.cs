@@ -87,6 +87,8 @@ namespace BgInfo {
 
         public delegate bool EnumMonitorProc(IntPtr hMonitor, IntPtr hdcMonitor, ref RECT rcMonitor, IntPtr data);
 
+        public delegate bool EnumWindowsProc(IntPtr hwnd, IntPtr lParam);
+
         [DllImport("user32")]
         public static extern IntPtr SetWindowPos(IntPtr hWnd, IntPtr hWndAfter, int x, int y, int dx, int cy, uint flags);
 
@@ -101,6 +103,18 @@ namespace BgInfo {
 
         [DllImport("user32")]
         public static extern int GetWindowLong(IntPtr hWnd, int index);
+
+        [DllImport("user32")]
+        public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+
+        [DllImport("user32")]
+        public static extern IntPtr FindWindowEx(IntPtr hWndParent, IntPtr hWndChildAfter, string lpszClass, string lpszWindow);
+
+        [DllImport("user32")]
+        public static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
+
+        [DllImport("user32")]
+        public static extern int SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
 
         [DllImport("psapi", SetLastError = true)]
         public static extern bool GetPerformanceInfo(ref PerformanceInformation pi, int size);
