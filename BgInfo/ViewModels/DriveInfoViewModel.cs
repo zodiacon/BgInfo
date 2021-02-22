@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Prism.Mvvm;
 
 namespace BgInfo.ViewModels {
@@ -14,8 +9,25 @@ namespace BgInfo.ViewModels {
         }
 
         public string Name => DriveInfo.Name;
-        public string TotalSize => GetSize(DriveInfo.TotalSize);
-        public string FreeSpace => GetSize(DriveInfo.TotalFreeSpace);
+        public string TotalSize
+        {
+            get
+            {
+                if (!DriveInfo.IsReady)
+                    return "Drive Not Ready";
+                return GetSize(DriveInfo.TotalSize);
+            }
+        }
+
+        public string FreeSpace
+        {
+            get
+            {
+                if (!DriveInfo.IsReady)
+                    return "Drive Not Ready";
+                return GetSize(DriveInfo.TotalFreeSpace);
+            }
+        }
 
         private string GetSize(long size) {
             if(size > 1 << 30)
@@ -24,3 +36,4 @@ namespace BgInfo.ViewModels {
         }
     }
 }
+
